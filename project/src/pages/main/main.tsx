@@ -1,41 +1,15 @@
-import PlaceCard from '../../components/place-card/place-card';
+import CardList from '../../components/card-list/card-list';
+import Header from '../../components/header/header';
+import { Place } from '../../types/place';
 
 type MainProps = {
-    citiesCount: number;
+    places : Place[]
 }
 
-function Main({citiesCount}: MainProps): JSX.Element {
+export default function Main({places}: MainProps): JSX.Element {
   return (
-    <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt={`${citiesCount } cities logo`} width="81" height="41"/>
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+    <>
+      <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -94,73 +68,7 @@ function Main({citiesCount}: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <PlaceCard
-                  place = {{
-                    isPremium :true,
-                    img : 'img/apartment-01.jpg',
-                    price : 120,
-                    priceText : 'night',
-                    rating : 80,
-                    name : 'Beautiful & luxurious apartment at great location',
-                    type : 'Apartment'
-                  }}
-                  bookmark={false}
-                />
-
-                <PlaceCard
-                  place = {{
-                    isPremium :false,
-                    img : 'img/room.jpg',
-                    price : 80,
-                    priceText : 'night',
-                    rating : 80,
-                    name : 'Wood and stone place',
-                    type : 'Private room'
-                  }}
-                  bookmark
-                />
-
-                <PlaceCard
-                  place = {{
-                    isPremium :false,
-                    img : 'img/apartment-02.jpg',
-                    price : 132,
-                    priceText : 'night',
-                    rating : 80,
-                    name : 'Canal View Prinsengracht',
-                    type : 'Apartment'
-                  }}
-                  bookmark={false}
-                />
-
-                <PlaceCard
-                  place = {{
-                    isPremium :true,
-                    img : 'img/apartment-03.jpg',
-                    price : 180,
-                    priceText : 'night',
-                    rating : 100,
-                    name : 'Nice, cozy, warm big bed apartment',
-                    type : 'Apartment'
-                  }}
-                  bookmark={false}
-                />
-
-                <PlaceCard
-                  place = {{
-                    isPremium :true,
-                    img : 'img/room.jpg',
-                    price : 80,
-                    priceText : 'night',
-                    rating : 80,
-                    name : 'Wood and stone place',
-                    type : 'Private room'
-                  }}
-                  bookmark
-                />
-
-              </div>
+              <CardList places = {places} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -168,8 +76,6 @@ function Main({citiesCount}: MainProps): JSX.Element {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }
-
-export default Main;
