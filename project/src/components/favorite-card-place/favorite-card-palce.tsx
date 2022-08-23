@@ -5,13 +5,12 @@ import FavoriteMark from '../utils/favorite-mark';
 import PremiumMark from '../utils/premium-mark';
 
 type FavoriteCardPalceProps = {
-    key: number;
     place: Place;
 }
 
-export default function FavoriteCardPalce({ key, place }: FavoriteCardPalceProps): JSX.Element {
+export default function FavoriteCardPalce({ place }: FavoriteCardPalceProps): JSX.Element {
   return (
-    <article key={key} className="favorites__card place-card">
+    <article key={place.id} className="favorites__card place-card">
       <PremiumMark place={place}/>
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to="#">

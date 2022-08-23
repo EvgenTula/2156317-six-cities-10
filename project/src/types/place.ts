@@ -1,12 +1,14 @@
 export type City =
 {
     name : string;
-    location: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-    }
+    location: Location;
 }
+
+export type Location = {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
 
 export type Owner = {
     name : string;
@@ -30,5 +32,6 @@ export type Place = {
     isPremium : boolean;
     isFavorite : boolean;
     city : City;
+    location : Location;
   }
 
