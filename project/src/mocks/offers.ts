@@ -19,10 +19,15 @@ export const places: Place[] = [
     city : {
       name: 'Amsterdam',
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 10
       }
+    },
+    location : {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 10
     }
   },
   {
@@ -41,12 +46,17 @@ export const places: Place[] = [
     isPremium : true,
     isFavorite : false,
     city : {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 35.370216,
-        longitude: 5.895168,
+        latitude: 52.369553943508,
+        longitude: 4.85309666406198,
         zoom: 10,
       }
+    },
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
+      zoom: 10,
     }
   },
   {
@@ -65,12 +75,75 @@ export const places: Place[] = [
     isPremium : false,
     isFavorite : true,
     city : {
-      name: 'Paris',
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
+        zoom: 8
+      }
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8
+    }
+  },
+  {
+    id : 4,
+    name : 'Super Canal Prinsengracht',
+    price : 900,
+    rentDescr : 'night',
+    rating : 90,
+    type : 'Apartment',
+    img : 'img/apartment-02.jpg',
+    stars : 1,
+    bedrooms : 3,
+    adults : 2,
+    options : [ 'wi-fi', 'Kitchen', 'Fridge', 'beer' ],
+    owner : { name: 'Angelina-3', img : 'img/avatar-angelina.jpg', descr : 'noraml' },
+    isPremium : false,
+    isFavorite : true,
+    city : {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 8
+      }
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8
+    }
+  },
+  {
+    id : 5,
+    name : 'Prinsengracht',
+    price : 20,
+    rentDescr : 'night',
+    rating : 40,
+    type : 'Apartment',
+    img : 'img/apartment-02.jpg',
+    stars : 1,
+    bedrooms : 3,
+    adults : 2,
+    options : [ 'hot water' ],
+    owner : { name: 'Angelina-3', img : 'img/avatar-angelina.jpg', descr : 'noraml' },
+    isPremium : false,
+    isFavorite : true,
+    city : {
+      name: 'Brussels',
       location: {
         latitude: 35.35514938496378,
         longitude: 5.673877537499948,
         zoom: 8
       }
+    },
+    location: {
+      latitude: 35.35514938496378,
+      longitude: 5.673877537499948,
+      zoom: 8
     }
   }
 ];

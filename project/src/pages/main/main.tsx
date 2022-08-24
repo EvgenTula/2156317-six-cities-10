@@ -1,6 +1,7 @@
 import CardList from '../../components/card-list/card-list';
 import Header from '../../components/header/header';
 import { Place } from '../../types/place';
+import Map from '../../components/map/map';
 
 type MainProps = {
     places : Place[]
@@ -71,7 +72,7 @@ export default function Main({places}: MainProps): JSX.Element {
               <CardList places = {places} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city={places[0].city} places={places} />
             </div>
           </div>
         </div>

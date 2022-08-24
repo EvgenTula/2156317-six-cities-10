@@ -46,8 +46,6 @@ export default function Review(): JSX.Element {
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <SetStars onChange={starsChange} initialValue={data.rating}/>
-      {(() => '') ()}
-
       <textarea onChange={reviewChange} className="reviews__textarea form__textarea" id="review" name="review" value={data.review} placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
