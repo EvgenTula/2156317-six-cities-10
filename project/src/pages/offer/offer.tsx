@@ -1,14 +1,21 @@
+import { useParams } from 'react-router-dom';
+import ImageList from '../../components/image-list/image-list';
 import Logo from '../../components/logo/logo';
+import PropertyList from '../../components/property-list/property-list';
 import Review from '../../components/review/review';
 import FavoriteMark from '../../components/utils/favorite-mark';
 import PremiumMark from '../../components/utils/premium-mark';
-import { Place } from '../../types/place';
+import { useAppSelector } from '../../hooks';
 
-type OfferProps = {
-    place : Place;
-}
+function Offer(): JSX.Element {
+  const { id } = useParams();
+  const currentPlace = useAppSelector((state) => state.cityPlaces.find((item) => item.id === Number(id)));
+  if (!currentPlace) {
+    return (
+      <div className="page">Предложений не найдено</div>
+    );
+  }
 
-function Offer({place} : OfferProps): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -41,35 +48,16 @@ function Offer({place} : OfferProps): JSX.Element {
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
-            <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
-            </div>
+            <ImageList />
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <PremiumMark place={place} />
+              <PremiumMark place={currentPlace} />
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {place.name}
+                  {currentPlace.name}
                 </h1>
-                <FavoriteMark place={place} />
+                <FavoriteMark place={currentPlace} />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -80,54 +68,20 @@ function Offer({place} : OfferProps): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {place.type}
+                  {currentPlace.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {place.bedrooms}
+                  {currentPlace.bedrooms}
                 </li>
                 <li className="property__feature property__feature--adults">
-                            Max {place.adults} adults
+                            Max {currentPlace.adults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{place.price}</b>
-                <span className="property__price-text">&nbsp;{place.rentDescr}</span>
+                <b className="property__price-value">&euro;{currentPlace.price}</b>
+                <span className="property__price-text">&nbsp;{currentPlace.rentDescr}</span>
               </div>
-              <div className="property__inside">
-                <h2 className="property__inside-title">What&apos;s inside</h2>
-                <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                                Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                                Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                                Towels
-                  </li>
-                  <li className="property__inside-item">
-                                Heating
-                  </li>
-                  <li className="property__inside-item">
-                                Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                                Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                                Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                                Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                                Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                                Fridge
-                  </li>
-                </ul>
-              </div>
+              <PropertyList />
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
@@ -135,7 +89,7 @@ function Offer({place} : OfferProps): JSX.Element {
                     <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    {place.owner.name}
+                    {currentPlace.owner.name}
                   </span>
                   <span className="property__user-status">
                                 Pro

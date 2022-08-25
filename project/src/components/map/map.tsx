@@ -21,13 +21,7 @@ export default function Map({city, places}: MapProps): JSX.Element {
     iconSize: [27, 39],
     iconAnchor: [13.5, 39],
   });
-  /*
-  const currentIcon = leaflet.icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [27, 39],
-    iconAnchor: [13.5, 39],
-  });
-*/
+
   useEffect(() => {
     if(map) {
       places.forEach((place) => {
