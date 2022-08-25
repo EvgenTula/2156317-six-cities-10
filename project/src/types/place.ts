@@ -23,11 +23,11 @@ export type Place = {
     rentDescr : string;
     rating : number;
     type : string;
-    img : string;
+    img : string[];
     stars : number;
     bedrooms : number;
     adults : number;
-    options : string[];
+    property : string[];
     owner : Owner;
     isPremium : boolean;
     isFavorite : boolean;

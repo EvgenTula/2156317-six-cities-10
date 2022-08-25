@@ -9,6 +9,9 @@ import Main from './pages/main/main';
 import NotFound from './pages/not-found/not-found';
 import Offer from './pages/offer/offer';
 import {places} from './mocks/offers';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import { cities } from './mocks/cities';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -16,33 +19,35 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={<Main places = {places}/>}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={<Login />}
-        />
-        <Route
-          path={AppRoute.Room}
-          element={<Offer place = {places[0]}/>}
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <Favorites places = {places} />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.NotFound}
-          element={<NotFound />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path={AppRoute.Main}
+            element={<Main places = {places} cities={cities}/>}
+          />
+          <Route
+            path={AppRoute.Login}
+            element={<Login />}
+          />
+          <Route
+            path={AppRoute.Room}
+            element={<Offer />}
+          />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <Favorites places = {places} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={AppRoute.NotFound}
+            element={<NotFound />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );

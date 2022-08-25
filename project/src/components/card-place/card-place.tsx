@@ -19,7 +19,7 @@ export default function CardPlace({place, onMouseOver, onMouseLeave} : CardPlace
       <PremiumMark place={place}/>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={AppRoute.RoomDefault + place.id} state = {place}>
-          <img className="place-card__image" src={place.img} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={place.img[0]} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
