@@ -4,9 +4,10 @@ import { useState } from 'react';
 
 type CardListProps = {
   places: Place[];
+  onPlaceHover: (id: number | null) => void;
 };
 
-export default function CardList({ places }: CardListProps): JSX.Element {
+export default function CardList({ places, onPlaceHover }: CardListProps): JSX.Element {
   const [selected, setSelected] = useState<number | null>(null);
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -17,10 +18,12 @@ export default function CardList({ places }: CardListProps): JSX.Element {
           onMouseOver={() => {
             if(selected !== index) {
               setSelected(index);
+              onPlaceHover(place.id);
             }
           }}
           onMouseLeave={() => {
             setSelected(null);
+            onPlaceHover(null);
           }}
         />
       ))}

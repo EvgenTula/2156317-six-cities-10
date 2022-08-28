@@ -14,7 +14,7 @@ export default function FavoriteCardPalce({ place }: FavoriteCardPalceProps): JS
       <PremiumMark place={place}/>
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to="#">
-          <img className="place-card__image" src={place.img[0]} width="150" height="110" alt="Place" />
+          <img className="place-card__image" src={place.images[0]} width="150" height="110" alt="Place" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">

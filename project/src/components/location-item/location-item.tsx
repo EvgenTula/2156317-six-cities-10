@@ -4,7 +4,7 @@ import { City } from '../../types/place';
 type LocationItemProps = {
   city: City;
   selectedCity: City;
-  onSelectCity: (city: City) => void;
+  onSelectCity: (newCity: City) => void;
 }
 
 export default function LocationItem({city, selectedCity, onSelectCity}: LocationItemProps): JSX.Element {

@@ -1,18 +1,28 @@
 import CardList from '../../components/card-list/card-list';
 import Header from '../../components/header/header';
-import { City, Place } from '../../types/place';
+import { City, Location, Place } from '../../types/place';
 import Map from '../../components/map/map';
 import LocationList from '../../components/location-list/location-list';
-import { useAppSelector } from '../../hooks';
+import { useState } from 'react';
 
 type MainProps = {
-    places : Place[]
-    cities : City[]
+    places : Place[];
+    cities : City[];
+    city : City;
 }
 
-export default function Main({places, cities}: MainProps): JSX.Element {
-  const { city } = useAppSelector((state) => state);
+export default function Main({places, cities, city}: MainProps): JSX.Element {
   const cityPlaces = places.filter((place) => place.city.name === city.name);
+  const [selectedLocation, setSelectedLocation] = useState<Location | undefined>(undefined);
+  const handlePlace = (hoveredPlace: number | null) => {
+    if (hoveredPlace === null) {
+      setSelectedLocation(undefined);
+    } else {
+      const currentOffer = places.find((place) => place.id === hoveredPlace);
+      setSelectedLocation(currentOffer?.location);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -31,7 +41,7 @@ export default function Main({places, cities}: MainProps): JSX.Element {
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
-                        Popular
+                  Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
@@ -43,10 +53,14 @@ export default function Main({places, cities}: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardList places = {cityPlaces} />
+              <CardList places = {cityPlaces} onPlaceHover = {handlePlace} />
             </section>
             <div className="cities__right-section">
-              <Map city={places[0].city} places={places} />
+              <Map
+                city={city}
+                places={places}
+                currentLocation={selectedLocation}
+              />
             </div>
           </div>
         </div>

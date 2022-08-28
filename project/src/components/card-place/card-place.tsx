@@ -19,20 +19,20 @@ export default function CardPlace({place, onMouseOver, onMouseLeave} : CardPlace
       <PremiumMark place={place}/>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={AppRoute.RoomDefault + place.id} state = {place}>
-          <img className="place-card__image" src={place.img[0]} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={place.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
-            <span className="place-card__price-text">&#47;&nbsp;{place.rentDescr}</span>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <FavoriteMark place={place}/>
         </div>
         <Raiting rating={place.rating}/>
         <h2 className="place-card__name">
-          <Link to={AppRoute.RoomDefault + place.id}>{place.name}</Link>
+          <Link to={AppRoute.RoomDefault + place.id}>{place.title}</Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>
