@@ -1,15 +1,14 @@
-import { useParams } from 'react-router-dom';
-import { places } from '../../mocks/offers';
+type PropertyListProps = {
+  propetry : string[];
+}
 
-export default function PropertyList(): JSX.Element {
-  const { id } = useParams();
-  const place = places.filter((item) => item.id === Number(id))[0];
+export default function PropertyList({ propetry } : PropertyListProps): JSX.Element {
   return (
     <div className="property__inside">
       <h2 className="property__inside-title">What&apos;s inside</h2>
       <ul className="property__inside-list">
-        {place.property.map((prop, index) => (
-          <li key={place.id} className="property__inside-item">
+        {propetry.map((prop) => (
+          <li key={prop} className="property__inside-item">
             {prop}
           </li>
         ))}

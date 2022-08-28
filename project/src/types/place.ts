@@ -11,24 +11,27 @@ export type Location = {
   };
 
 export type Owner = {
+    id: number;
+    isPro: boolean;
     name : string;
-    img : string;
-    descr : string;
+    avatarUrl : string;
+    description : string;
   }
 
 export type Place = {
     id : number;
-    name : string;
+    title : string;
     price : number;
-    rentDescr : string;
+    description : string;
     rating : number;
     type : string;
-    img : string[];
+    previewImage : string,
+    images : string[];
     stars : number;
     bedrooms : number;
-    adults : number;
-    property : string[];
-    owner : Owner;
+    maxAdults : number;
+    goods : string[];
+    host : Owner;
     isPremium : boolean;
     isFavorite : boolean;
     city : City;

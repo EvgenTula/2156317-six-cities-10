@@ -12,7 +12,7 @@ export default function LocationList({ cities }: LocationListProps): JSX.Element
   const dispatch = useAppDispatch();
 
   const handleSelectCity = (currentCity: City) => {
-    dispatch(changeCity({ currentCity : currentCity }));
+    dispatch(changeCity(currentCity));
   };
 
   return (

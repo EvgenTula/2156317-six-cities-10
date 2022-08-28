@@ -6,13 +6,16 @@ import Review from '../../components/review/review';
 import FavoriteMark from '../../components/utils/favorite-mark';
 import PremiumMark from '../../components/utils/premium-mark';
 import { useAppSelector } from '../../hooks';
+import NotFound from '../not-found/not-found';
+import Map from '../../components/map/map';
 
 function Offer(): JSX.Element {
   const { id } = useParams();
+  const places = useAppSelector((state) => state.cityPlaces);
   const currentPlace = useAppSelector((state) => state.cityPlaces.find((item) => item.id === Number(id)));
   if (!currentPlace) {
     return (
-      <div className="page">Предложений не найдено</div>
+      <NotFound />
     );
   }
 
@@ -48,14 +51,14 @@ function Offer(): JSX.Element {
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
-            <ImageList />
+            <ImageList images={currentPlace.images} type={currentPlace.type} />
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
               <PremiumMark place={currentPlace} />
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {currentPlace.name}
+                  {currentPlace.title}
                 </h1>
                 <FavoriteMark place={currentPlace} />
               </div>
@@ -74,14 +77,14 @@ function Offer(): JSX.Element {
                   {currentPlace.bedrooms}
                 </li>
                 <li className="property__feature property__feature--adults">
-                            Max {currentPlace.adults} adults
+                            Max {currentPlace.maxAdults} adults
                 </li>
               </ul>
+              <PropertyList propetry={currentPlace.goods} />
               <div className="property__price">
                 <b className="property__price-value">&euro;{currentPlace.price}</b>
-                <span className="property__price-text">&nbsp;{currentPlace.rentDescr}</span>
+                <span className="property__price-text">&nbsp;night</span>
               </div>
-              <PropertyList />
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
@@ -89,18 +92,15 @@ function Offer(): JSX.Element {
                     <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    {currentPlace.owner.name}
+                    {currentPlace.host.name}
                   </span>
                   <span className="property__user-status">
-                                Pro
+                    {currentPlace.host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                                A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                                An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {currentPlace.description}
                   </p>
                 </div>
               </div>
@@ -134,7 +134,13 @@ function Offer(): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map
+              city = {currentPlace.city}
+              places = {places}
+              currentLocation = {currentPlace.city.location}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
