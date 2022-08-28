@@ -1,8 +1,9 @@
 import { AuthorizationStatus, DEFAULT_CITY } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, loadPlaces, requireAuthorization, setLoadedStatus, setError, setUserData } from './action';
+import { changeCity, loadPlaces, requireAuthorization, setLoadedStatus, setError, setUserData, loadComments, loadFavorites } from './action';
 import { City, Place } from '../types/place';
 import { UserData } from '../types/user-data';
+import { Comment } from '../types/comment';
 
 type InitalStateType = {
   city: City;
@@ -11,6 +12,8 @@ type InitalStateType = {
   error: string | null;
   isLoaded: boolean;
   userData: UserData | null;
+  comments : Comment[];
+  favorites : Place[];
 }
 
 const initialState : InitalStateType = {
@@ -19,7 +22,9 @@ const initialState : InitalStateType = {
   authState: AuthorizationStatus.Unknown,
   error: null,
   isLoaded: false,
-  userData: null
+  userData: null,
+  comments: [],
+  favorites: []
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -32,6 +37,12 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadedStatus, (state, action) => {
       state.isLoaded = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(loadFavorites, (state, action) => {
+      state.favorites = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authState = action.payload;

@@ -15,7 +15,6 @@ export type Owner = {
     isPro: boolean;
     name : string;
     avatarUrl : string;
-    description : string;
   }
 
 export type Place = {

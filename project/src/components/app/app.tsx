@@ -15,7 +15,7 @@ type AppScreenProps = {
 }
 
 export default function App({ cities }: AppScreenProps): JSX.Element {
-  const { city, cityPlaces, authState, isLoaded } = useAppSelector((state) => state);
+  const { city, cityPlaces, authState, isLoaded, comments } = useAppSelector((state) => state);
   if (authState === AuthorizationStatus.Unknown || isLoaded) {
     return (
       <Loading />
@@ -35,13 +35,13 @@ export default function App({ cities }: AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<Offer />}
+          element={<Offer comments={comments}/>}
         />
         <Route
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={authState}>
-              <Favorites places = {cityPlaces} />
+              <Favorites />
             </PrivateRoute>
           }
         />

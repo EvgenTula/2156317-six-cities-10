@@ -3,11 +3,13 @@ import { AxiosInstance } from 'axios';
 import { ApiRoute, AuthorizationStatus, ERROR_TIMEOUT } from '../const';
 import { Place } from '../types/place';
 import { AppDispatch, State } from '../types/state';
-import { loadPlaces, requireAuthorization, setLoadedStatus, setError, setUserData } from './action';
+import { loadPlaces, requireAuthorization, setLoadedStatus, setError, setUserData, loadComments, loadFavorites } from './action';
 import { store } from '.';
 import { UserData } from '../types/user-data';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
+import { Comment } from '../types/comment';
+import { FavoriteState } from '../types/favoriteState';
 
 export const fetchPlacesAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -21,6 +23,18 @@ export const fetchPlacesAction = createAsyncThunk<void, undefined, {
     dispatch(setLoadedStatus(false));
   },
 );
+
+export const fetchCommentsAction = createAsyncThunk<void, Place, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'loadComments', async ({ id }, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comment[]>(`${ApiRoute.Comments}${id}`);
+    dispatch(loadComments(data));
+  },
+);
+
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -72,5 +86,29 @@ export const clearErrorAction = createAsyncThunk(
       () => store.dispatch(setError(null)),
       ERROR_TIMEOUT,
     );
+  },
+);
+
+export const loadFavoriteList = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'loadFavorite',
+  async (_arg, { dispatch, extra: api }) => {
+    const {data} = await api.get<Place[]>(ApiRoute.Favorites);
+    dispatch(loadFavorites(data));
+  },
+);
+
+export const changeFavoriteList = createAsyncThunk<void, FavoriteState, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'changeFavorite',
+  async ({hotelId, status}, { dispatch, extra: api }) => {
+    const {data} = await api.post<Place[]>(`${ApiRoute.Favorites}/${hotelId}/${status}`);
+    dispatch(loadFavorites(data));
   },
 );

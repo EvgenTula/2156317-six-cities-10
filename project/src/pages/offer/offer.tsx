@@ -1,53 +1,36 @@
 import { useParams } from 'react-router-dom';
 import ImageList from '../../components/image-list/image-list';
-import Logo from '../../components/logo/logo';
 import PropertyList from '../../components/property-list/property-list';
 import Review from '../../components/review/review';
 import FavoriteMark from '../../components/utils/favorite-mark';
 import PremiumMark from '../../components/utils/premium-mark';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import NotFound from '../not-found/not-found';
 import Map from '../../components/map/map';
+import { Comment } from '../../types/comment';
+import Header from '../../components/header/header';
+import ReviewList from '../../components/review-list/review-list';
+import { AuthorizationStatus } from '../../const';
+import { fetchCommentsAction } from '../../store/api-actions';
 
-function Offer(): JSX.Element {
+type OfferProps = {
+  comments : Comment[]
+};
+
+function Offer({ comments } : OfferProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const places = useAppSelector((state) => state.cityPlaces);
-  const currentPlace = useAppSelector((state) => state.cityPlaces.find((item) => item.id === Number(id)));
+  const { cityPlaces, authState } = useAppSelector((state) => state);
+  const currentPlace = cityPlaces.find((item) => item.id === Number(id));
   if (!currentPlace) {
     return (
       <NotFound />
     );
   }
-
+  dispatch(fetchCommentsAction(currentPlace));
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -105,39 +88,16 @@ function Offer(): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
-                      </div>
-                      <span className="reviews__user-name">
-                                    Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: 80}}></span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
-                <Review />
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                <ReviewList comments={comments} />
+                {authState === AuthorizationStatus.Auth ? <Review /> : ''}
               </section>
             </div>
           </div>
           <section className="property__map map">
             <Map
               city = {currentPlace.city}
-              places = {places}
+              places = {cityPlaces}
               currentLocation = {currentPlace.city.location}
             />
           </section>

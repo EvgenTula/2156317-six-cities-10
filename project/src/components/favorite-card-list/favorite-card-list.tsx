@@ -7,8 +7,7 @@ type FavoriteCardListProps = {
 };
 
 export default function FavoriteCardList({ places }: FavoriteCardListProps): JSX.Element {
-  const favoritePlacesCity = [...new Set(places.map((place) => place.city.name))];
-
+  const favoritePlacesCity = Array.from(new Set(places.map((place) => place.city.name)));
   return (
     <ul className="favorites__list">
       {favoritePlacesCity.map((city): JSX.Element => (

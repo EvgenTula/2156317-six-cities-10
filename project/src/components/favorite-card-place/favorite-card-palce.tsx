@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Place } from '../../types/place';
+import Raiting from '../raiting/rating';
 import FavoriteMark from '../utils/favorite-mark';
 import PremiumMark from '../utils/premium-mark';
 
@@ -14,7 +15,7 @@ export default function FavoriteCardPalce({ place }: FavoriteCardPalceProps): JS
       <PremiumMark place={place}/>
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to="#">
-          <img className="place-card__image" src={place.images[0]} width="150" height="110" alt="Place" />
+          <img className="place-card__image" src={place.previewImage} width="150" height="110" alt="Place" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
@@ -25,14 +26,9 @@ export default function FavoriteCardPalce({ place }: FavoriteCardPalceProps): JS
           </div>
           <FavoriteMark place={place}/>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: '100%' }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Raiting rating={place.rating} />
         <h2 className="place-card__name">
-          <Link to={AppRoute.RoomDefault + place.id} state = {place}/>
+          <Link to={`${AppRoute.RoomDefault}${place.id}`} state = {place}>{place.title}</Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>

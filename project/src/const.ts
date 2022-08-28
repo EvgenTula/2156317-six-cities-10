@@ -33,6 +33,8 @@ export enum ApiRoute {
     Places = '/hotels',
     Login = '/login',
     Logout = '/logout',
+    Comments = '/comments/',
+    Favorites = '/favorite'
   }
 
 export enum AppRoute {

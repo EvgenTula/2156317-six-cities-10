@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 
 export default function Header(): JSX.Element {
-  const { authState, userData } = useAppSelector((state) => state);
+  const { authState, userData, favorites } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   return (
     <header className="header">
@@ -23,7 +23,7 @@ export default function Header(): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">{userData?.email}</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favorites.length}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
